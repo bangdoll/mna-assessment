@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import {
   Box,
   Stepper,
@@ -56,6 +57,7 @@ const screeningQuestions: Question[] = [
 ];
 
 export const MNAForm: React.FC = () => {
+  const router = useRouter();
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [activeStep, setActiveStep] = useState(0);
 
@@ -86,7 +88,7 @@ export const MNAForm: React.FC = () => {
       });
       
       if (response.ok) {
-        alert('問卷提交成功！');
+        router.push(`/result?score=${score}`);
       } else {
         throw new Error('提交失敗');
       }
